@@ -2,8 +2,6 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-export const dynamic = 'force-static';
-
 // Load documents from JSON
 function getDocuments() {
   try {
@@ -14,13 +12,6 @@ function getDocuments() {
   } catch {
     return [];
   }
-}
-
-export function generateStaticParams() {
-  const documents = getDocuments();
-  return (documents as { slug: string }[])
-    .filter((d: { status_aktif?: boolean }) => d.status_aktif !== false)
-    .map((d) => ({ slug: d.slug }));
 }
 
 // Get document by slug with security checks

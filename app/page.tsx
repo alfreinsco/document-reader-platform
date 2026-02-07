@@ -31,7 +31,7 @@ export default function Home() {
   useEffect(() => {
     async function loadDocuments() {
       try {
-        const response = await fetch('/api/documents-list');
+        const response = await fetch('/api/documents');
         const data = await response.json();
         setDocuments(data.documents || []);
       } catch (error) {

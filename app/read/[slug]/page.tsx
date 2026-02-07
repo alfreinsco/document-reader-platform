@@ -1,30 +1,12 @@
+'use client';
+
 import { Header } from '@/components/header';
 import { DocumentViewer } from '@/components/document-viewer';
 import { ShareButton } from '@/components/share-button';
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { use } from 'react';
 
-function getDocumentSlugs(): string[] {
-  try {
-    const path = join(process.cwd(), 'public', 'data', 'documents.json');
-    const data = readFileSync(path, 'utf-8');
-    const json = JSON.parse(data) as { documents: { slug: string }[] };
-    return (json.documents ?? []).map((d) => d.slug);
-  } catch {
-    return [];
-  }
-}
-
-export function generateStaticParams() {
-  return getDocumentSlugs().map((slug) => ({ slug }));
-}
-
-export default async function ReadPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
+export default function ReadPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
 
   return (
     <>

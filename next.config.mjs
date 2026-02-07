@@ -1,10 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const repoName = 'document-reader-platform'
-
 const nextConfig = {
-  output: 'export', // WAJIB untuk static export
-
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -12,9 +8,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-
-  basePath: `/${repoName}`,
-  assetPrefix: `/${repoName}/`,
 }
 
 export default nextConfig
