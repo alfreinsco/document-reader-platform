@@ -1,15 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import {
   ChevronLeft,
-  Download,
   FileText,
   ImageIcon as ImageIcon,
+  Maximize2,
+  Minimize2,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { formatDate } from "@/lib/utils";
 
 interface DocumentViewerProps {
@@ -34,6 +34,35 @@ export function DocumentViewer({
   const [document, setDocument] = useState<DocumentData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const viewerRef = useRef<HTMLDivElement>(null);
+
+  const toggleFullscreen = useCallback(() => {
+    if (!viewerRef.current || typeof window === "undefined") return;
+    const doc = window.document;
+    if (!doc.fullscreenElement) {
+      viewerRef.current
+        .requestFullscreen?.()
+        .then(() => setIsFullscreen(true))
+        .catch(() => {});
+    } else {
+      doc
+        .exitFullscreen?.()
+        .then(() => setIsFullscreen(false))
+        .catch(() => {});
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const doc = window.document;
+    const onFullscreenChange = () => {
+      setIsFullscreen(!!doc.fullscreenElement);
+    };
+    doc.addEventListener("fullscreenchange", onFullscreenChange);
+    return () =>
+      doc.removeEventListener("fullscreenchange", onFullscreenChange);
+  }, []);
 
   useEffect(() => {
     async function loadDocument() {
@@ -78,6 +107,8 @@ export function DocumentViewer({
   }
 
   const fileUrl = `/api/proxy/${slug}`;
+  const pdfUrlWithNoToolbar =
+    document.type === "pdf" ? `${fileUrl}#toolbar=0&navpanes=0` : fileUrl;
   const Icon = document.type === "pdf" ? FileText : ImageIcon;
 
   return (
@@ -128,19 +159,43 @@ export function DocumentViewer({
 
       {/* Viewer Container */}
       <div
-        className="rounded-lg border border-border overflow-hidden bg-white"
+        ref={viewerRef}
+        className="relative rounded-lg border border-border overflow-hidden bg-white"
         onContextMenu={(e) => e.preventDefault()}
       >
         {document.type === "pdf" ? (
-          <div className="bg-gray-100 min-h-screen flex items-center justify-center">
-            <iframe
-              src={fileUrl}
-              className="w-full h-screen border-0"
-              title={document.judul}
-              style={{ minHeight: "600px" }}
-              onContextMenu={(e) => e.preventDefault()}
-            />
-          </div>
+          <>
+            <div className="absolute top-2 right-2 z-10">
+              <Button
+                type="button"
+                variant="secondary"
+                size="sm"
+                onClick={toggleFullscreen}
+                className="gap-2 shadow-md"
+              >
+                {isFullscreen ? (
+                  <>
+                    <Minimize2 className="h-4 w-4" />
+                    Keluar layar penuh
+                  </>
+                ) : (
+                  <>
+                    <Maximize2 className="h-4 w-4" />
+                    Layar penuh
+                  </>
+                )}
+              </Button>
+            </div>
+            <div className="bg-gray-100 min-h-[600px] flex items-center justify-center">
+              <iframe
+                src={pdfUrlWithNoToolbar}
+                className="w-full border-0"
+                title={document.judul}
+                style={{ minHeight: "600px", height: "80vh" }}
+                onContextMenu={(e) => e.preventDefault()}
+              />
+            </div>
+          </>
         ) : (
           <div
             className="bg-gray-100 min-h-screen flex items-center justify-center p-4"
