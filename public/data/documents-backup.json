@@ -1,0 +1,92 @@
+{
+  "documents": [
+    {
+      "id": "doc-001",
+      "judul": "Panduan Pengguna Sistem",
+      "deskripsi": "Dokumentasi lengkap tentang cara menggunakan sistem ini dengan fitur-fitur utama dan tips penggunaan.",
+      "tanggal": "2024-01-15T10:30:00Z",
+      "status_aktif": true,
+      "kategori": "panduan",
+      "type": "pdf",
+      "file_path": "/documents/user-guide.pdf",
+      "slug": "panduan-pengguna-sistem"
+    },
+    {
+      "id": "doc-002",
+      "judul": "Laporan Keuangan Q1 2024",
+      "deskripsi": "Ringkasan laporan keuangan triwulan pertama tahun 2024 dengan analisis detail.",
+      "tanggal": "2024-02-20T14:15:00Z",
+      "status_aktif": true,
+      "kategori": "laporan",
+      "type": "pdf",
+      "file_path": "/documents/financial-report-q1.pdf",
+      "slug": "laporan-keuangan-q1-2024"
+    },
+    {
+      "id": "doc-003",
+      "judul": "Screenshot Dashboard Analitik",
+      "deskripsi": "Tangkapan layar dashboard analitik menunjukkan metrik kinerja utama dan visualisasi data.",
+      "tanggal": "2024-02-28T09:45:00Z",
+      "status_aktif": true,
+      "kategori": "screenshot",
+      "type": "image",
+      "file_path": "/documents/dashboard-analytics.png",
+      "slug": "screenshot-dashboard-analitik"
+    },
+    {
+      "id": "doc-004",
+      "judul": "Kebijakan Privasi Perusahaan",
+      "deskripsi": "Dokumen resmi kebijakan privasi yang menjelaskan bagaimana data pengguna ditangani.",
+      "tanggal": "2024-01-10T08:00:00Z",
+      "status_aktif": true,
+      "kategori": "kebijakan",
+      "type": "pdf",
+      "file_path": "/documents/privacy-policy.pdf",
+      "slug": "kebijakan-privasi-perusahaan"
+    },
+    {
+      "id": "doc-005",
+      "judul": "Desain UI/UX Mockup",
+      "deskripsi": "Mockup desain antarmuka pengguna untuk fitur baru yang sedang dikembangkan.",
+      "tanggal": "2024-02-25T11:20:00Z",
+      "status_aktif": true,
+      "kategori": "desain",
+      "type": "image",
+      "file_path": "/documents/ui-mockup.png",
+      "slug": "desain-ui-ux-mockup"
+    },
+    {
+      "id": "doc-006",
+      "judul": "Presentasi Rencana Strategis",
+      "deskripsi": "Slide presentasi mengenai rencana strategis perusahaan untuk 3 tahun ke depan.",
+      "tanggal": "2024-03-01T15:30:00Z",
+      "status_aktif": false,
+      "kategori": "presentasi",
+      "type": "pdf",
+      "file_path": "/documents/strategic-plan.pdf",
+      "slug": "presentasi-rencana-strategis"
+    },
+    {
+      "id": "doc-007",
+      "judul": "Infografis Statistik Penjualan",
+      "deskripsi": "Visualisasi data statistik penjualan dalam format infografis yang menarik.",
+      "tanggal": "2024-02-15T13:45:00Z",
+      "status_aktif": true,
+      "kategori": "statistik",
+      "type": "image",
+      "file_path": "/documents/sales-infographic.png",
+      "slug": "infografis-statistik-penjualan"
+    },
+    {
+      "id": "doc-008",
+      "judul": "Manual Teknis Sistem Backend",
+      "deskripsi": "Dokumentasi teknis lengkap untuk arsitektur dan implementasi backend sistem.",
+      "tanggal": "2024-01-25T10:00:00Z",
+      "status_aktif": true,
+      "kategori": "panduan",
+      "type": "pdf",
+      "file_path": "/documents/backend-manual.pdf",
+      "slug": "manual-teknis-sistem-backend"
+    }
+  ]
+}
