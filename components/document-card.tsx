@@ -1,10 +1,25 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { FileText, ImageIcon, Eye, Share2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { formatDate } from '@/lib/utils';
+
+const PdfThumbnail = dynamic(
+  () => import('@/components/pdf-thumbnail').then((m) => m.PdfThumbnail),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex h-full w-full items-center justify-center bg-muted">
+        <div className="rounded-full bg-secondary/20 p-3 sm:p-4">
+          <FileText className="h-6 w-6 sm:h-8 sm:w-8 text-secondary" />
+        </div>
+      </div>
+    ),
+  }
+);
 
 interface Document {
   id: string;
@@ -18,7 +33,8 @@ interface Document {
 
 export function DocumentCard({ document }: { document: Document }) {
   const Icon = document.type === 'pdf' ? FileText : ImageIcon;
-  
+  const proxyUrl = `/api/proxy/${document.slug}`;
+
   const categoryColors: Record<string, string> = {
     panduan: 'bg-blue-100 text-blue-800 hover:bg-blue-200',
     laporan: 'bg-purple-100 text-purple-800 hover:bg-purple-200',
@@ -34,12 +50,18 @@ export function DocumentCard({ document }: { document: Document }) {
 
   return (
     <div className="group overflow-hidden rounded-lg border border-border bg-card transition-all hover:shadow-lg hover:border-secondary/50">
-      <div className="aspect-video w-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
-        <div className="rounded-full bg-secondary/20 p-3 sm:p-4">
-          <Icon className="h-6 w-6 sm:h-8 sm:w-8 text-secondary" />
-        </div>
+      <div className="aspect-video w-full overflow-hidden bg-muted">
+        {document.type === 'pdf' ? (
+          <PdfThumbnail slug={document.slug} className="min-h-full" />
+        ) : (
+          <img
+            src={proxyUrl}
+            alt=""
+            className="h-full w-full object-cover object-center"
+          />
+        )}
       </div>
-      
+
       <div className="p-4">
         <div className="mb-2 flex items-start justify-between gap-2">
           <h3 className="line-clamp-2 text-sm font-semibold text-foreground group-hover:text-secondary transition-colors">
