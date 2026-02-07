@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fapi\u002Fdocuments\u002F[slug]","\u002Fapi\u002Fproxy\u002F[slug]","\u002Fread\u002F[slug]","\u002Fshare\u002F[slug]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()

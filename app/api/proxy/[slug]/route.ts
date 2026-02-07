@@ -3,6 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import mime from 'mime-types';
 
+export const dynamic = 'force-static';
+
 // Load documents from JSON
 function getDocuments() {
   try {
@@ -13,6 +15,13 @@ function getDocuments() {
   } catch {
     return [];
   }
+}
+
+export function generateStaticParams() {
+  const documents = getDocuments();
+  return (documents as { slug: string; status_aktif?: boolean }[])
+    .filter((d) => d.status_aktif !== false)
+    .map((d) => ({ slug: d.slug }));
 }
 
 // Get document by slug with security checks
